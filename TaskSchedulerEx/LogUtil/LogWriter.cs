@@ -27,6 +27,8 @@ namespace Utils
 
         private string _rootFolder = "Log"; //日志文件夹名称
 
+        private object _lockWriter = new object();
+
         #endregion
 
         #region LogWriter
@@ -169,26 +171,29 @@ namespace Utils
         {
             try
             {
-                //判断是否更新Stream
-                string dateStr = DateTime.Now.ToString(_dateFormat);
-                if (_currentStream.CurrentDateStr != dateStr)
+                lock (_lockWriter)
                 {
-                    _currentStream.CurrentDateStr = dateStr;
-                    UpdateCurrentStream();
-                }
+                    //判断是否更新Stream
+                    string dateStr = DateTime.Now.ToString(_dateFormat);
+                    if (_currentStream.CurrentDateStr != dateStr)
+                    {
+                        _currentStream.CurrentDateStr = dateStr;
+                        UpdateCurrentStream();
+                    }
 
-                //判断是否创建Archive
-                int byteCount = Encoding.UTF8.GetByteCount(log);
-                _currentStream.CurrentFileSize += byteCount;
-                if (_currentStream.CurrentFileSize >= _fileSize)
-                {
-                    _currentStream.CurrentFileSize = 0;
-                    CreateArchive();
-                }
+                    //判断是否创建Archive
+                    int byteCount = Encoding.UTF8.GetByteCount(log);
+                    _currentStream.CurrentFileSize += byteCount;
+                    if (_currentStream.CurrentFileSize >= _fileSize)
+                    {
+                        _currentStream.CurrentFileSize = 0;
+                        CreateArchive();
+                    }
 
-                //日志内容写入文件
-                _currentStream.CurrentStreamWriter.WriteLine(log);
-                _currentStream.CurrentStreamWriter.Flush();
+                    //日志内容写入文件
+                    _currentStream.CurrentStreamWriter.WriteLine(log);
+                    _currentStream.CurrentStreamWriter.Flush();
+                }
             }
             catch (Exception ex)
             {
