@@ -6,5 +6,9 @@ packages
 *.suo
 *.user
 
+*.nupkg
+
+nuget.exe
+
 
 

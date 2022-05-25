@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.0.0</version>
+    <title>TaskSchedulerEx</title>
+    <authors>suxiang</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <!-- <icon>icon.png</icon> -->
+    <projectUrl>https://github.com/0611163/TaskSchedulerEx</projectUrl>
+    <description>Task extension library</description>
+    <releaseNotes>Task extension library</releaseNotes>
+    <copyright>Copyright @ 2021</copyright>
+    <tags></tags>
+  </metadata>
+</package>
