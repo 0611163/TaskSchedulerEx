@@ -34,6 +34,14 @@ namespace Utils
         {
             _infoWriter.WriteLog(log);
         }
+
+        /// <summary>
+        /// 写操作日志
+        /// </summary>
+        public static void Info(string log)
+        {
+            _infoWriter.WriteLog(log);
+        }
         #endregion
 
         #region 写调试日志
@@ -47,9 +55,20 @@ namespace Utils
         #endregion
 
         #region 写错误日志
+        /// <summary>
+        /// 写错误日志
+        /// </summary>
         public static void Error(Exception ex, string log = null)
         {
-            Error(string.IsNullOrEmpty(log) ? ex.Message + "\r\n" + ex.StackTrace : (log + "：") + ex.Message + "\r\n" + ex.StackTrace);
+            Error(string.IsNullOrEmpty(log) ? ex.ToString() : log + "：" + ex.ToString());
+        }
+
+        /// <summary>
+        /// 写错误日志
+        /// </summary>
+        public static void Error(string log, Exception ex)
+        {
+            Error(string.IsNullOrEmpty(log) ? ex.ToString() : log + "：" + ex.ToString());
         }
 
         /// <summary>
