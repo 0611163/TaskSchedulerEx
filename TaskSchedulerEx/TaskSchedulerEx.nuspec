@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.0</version>
+    <version>1.0.4</version>
     <title>TaskSchedulerEx</title>
     <authors>suxiang</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

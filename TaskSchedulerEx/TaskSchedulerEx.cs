@@ -15,11 +15,6 @@ namespace Utils
     /// </summary>
     public class TaskSchedulerEx : TaskScheduler, IDisposable
     {
-        #region 外部方法
-        [DllImport("kernel32.dll", EntryPoint = "SetProcessWorkingSetSize")]
-        public static extern int SetProcessWorkingSetSize(IntPtr process, int minSize, int maxSize);
-        #endregion
-
         #region 变量属性事件
         private ConcurrentQueue<Task> _tasks = new ConcurrentQueue<Task>();
         private int _coreThreadCount = 0;
@@ -130,6 +125,8 @@ namespace Utils
                 _sem.Release();
                 Interlocked.Increment(ref _semCount);
             }
+
+            _sem.Dispose();
         }
         #endregion
 
@@ -162,15 +159,6 @@ namespace Utils
                         }
                     }
                     Interlocked.Decrement(ref _activeThreadCount);
-                    if (_activeThreadCount == 0)
-                    {
-                        GC.Collect();
-                        GC.WaitForPendingFinalizers();
-                        if (Environment.OSVersion.Platform == PlatformID.Win32NT)
-                        {
-                            SetProcessWorkingSetSize(System.Diagnostics.Process.GetCurrentProcess().Handle, -1, -1);
-                        }
-                    }
                 }));
                 thread.IsBackground = true;
                 thread.Start();
@@ -205,15 +193,6 @@ namespace Utils
                     }
                 }
                 Interlocked.Decrement(ref _activeThreadCount);
-                if (_activeThreadCount == _coreThreadCount)
-                {
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                    if (Environment.OSVersion.Platform == PlatformID.Win32NT)
-                    {
-                        SetProcessWorkingSetSize(System.Diagnostics.Process.GetCurrentProcess().Handle, -1, -1);
-                    }
-                }
             }));
             thread.IsBackground = true;
             thread.Start();
