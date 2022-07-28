@@ -82,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TaskSchedulerEx\TaskSchedulerEx.csproj">
-      <Project>{15f03b34-80c9-4f9a-bc94-7b6b15be392e}</Project>
+      <Project>{620577cc-005e-4cf0-9d99-7905acb62bea}</Project>
       <Name>TaskSchedulerEx</Name>
     </ProjectReference>
   </ItemGroup>
