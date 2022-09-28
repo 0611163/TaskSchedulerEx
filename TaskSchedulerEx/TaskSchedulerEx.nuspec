@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>TaskSchedulerEx</id>
-    <version>1.0.6</version>
+    <version>1.0.8</version>
     <title>TaskSchedulerEx</title>
     <authors>suxiang</authors>
     <owners></owners>
@@ -10,51 +10,26 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/0611163/TaskSchedulerEx</projectUrl>
     <description>Task extension library</description>
-    <releaseNotes>Task extension library</releaseNotes>
+    <releaseNotes>仅修改工程的目标框架</releaseNotes>
     <copyright>Copyright @ 2021</copyright>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
-        <dependency id="LogUtil" version="1.0.10" />
-      </group>
-      <group targetFramework=".NETFramework4.5.2">
-        <dependency id="LogUtil" version="1.0.10" />
-      </group>
-      <group targetFramework="net5.0">
-        <dependency id="LogUtil" version="1.0.10" />
+        <dependency id="LogUtil" version="1.0.12" />
       </group>
       <group targetFramework="net6.0">
-        <dependency id="LogUtil" version="1.0.10" />
-      </group>
-      <group targetFramework=".NETCoreApp2.1">
-        <dependency id="LogUtil" version="1.0.10" />
-      </group>
-      <group targetFramework=".NETCoreApp3.1">
-        <dependency id="LogUtil" version="1.0.10" />
+        <dependency id="LogUtil" version="1.0.12" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="LogUtil" version="1.0.10" />
-      </group>
-      <group targetFramework=".NETStandard2.1">
-        <dependency id="LogUtil" version="1.0.10" />
+        <dependency id="LogUtil" version="1.0.12" />
       </group>
     </dependencies>
   </metadata>
   <files>
     <file src="lib\net45\TaskSchedulerEx.dll" target="lib\net45\TaskSchedulerEx.dll" />
     <file src="lib\net45\TaskSchedulerEx.xml" target="lib\net45\TaskSchedulerEx.xml" />
-    <file src="lib\net452\TaskSchedulerEx.dll" target="lib\net452\TaskSchedulerEx.dll" />
-    <file src="lib\net452\TaskSchedulerEx.xml" target="lib\net452\TaskSchedulerEx.xml" />
-    <file src="lib\net5.0\TaskSchedulerEx.dll" target="lib\net5.0\TaskSchedulerEx.dll" />
-    <file src="lib\net5.0\TaskSchedulerEx.xml" target="lib\net5.0\TaskSchedulerEx.xml" />
     <file src="lib\net6.0\TaskSchedulerEx.dll" target="lib\net6.0\TaskSchedulerEx.dll" />
     <file src="lib\net6.0\TaskSchedulerEx.xml" target="lib\net6.0\TaskSchedulerEx.xml" />
-    <file src="lib\netcoreapp21\TaskSchedulerEx.dll" target="lib\netcoreapp21\TaskSchedulerEx.dll" />
-    <file src="lib\netcoreapp21\TaskSchedulerEx.xml" target="lib\netcoreapp21\TaskSchedulerEx.xml" />
-    <file src="lib\netcoreapp31\TaskSchedulerEx.dll" target="lib\netcoreapp31\TaskSchedulerEx.dll" />
-    <file src="lib\netcoreapp31\TaskSchedulerEx.xml" target="lib\netcoreapp31\TaskSchedulerEx.xml" />
     <file src="lib\netstandard2.0\TaskSchedulerEx.dll" target="lib\netstandard2.0\TaskSchedulerEx.dll" />
     <file src="lib\netstandard2.0\TaskSchedulerEx.xml" target="lib\netstandard2.0\TaskSchedulerEx.xml" />
-    <file src="lib\netstandard2.1\TaskSchedulerEx.dll" target="lib\netstandard2.1\TaskSchedulerEx.dll" />
-    <file src="lib\netstandard2.1\TaskSchedulerEx.xml" target="lib\netstandard2.1\TaskSchedulerEx.xml" />
   </files>
 </package>
