@@ -15,7 +15,7 @@ namespace TaskSchedulerExTest
 {
     public partial class Form1 : Form
     {
-        private TaskSchedulerEx _taskEx = new TaskSchedulerEx(20, 20);
+        private TaskSchedulerEx _taskEx = new TaskSchedulerEx(0, 20);
 
         public Form1()
         {
@@ -68,11 +68,13 @@ namespace TaskSchedulerExTest
             _taskEx.Run(() =>
             {
                 int n = 100;
+                int count = 0;
                 List<Task> taskList = new List<Task>();
                 for (int i = 0; i < n; i++)
                 {
                     Task task = _taskEx.Run((obj) =>
                     {
+                        Interlocked.Increment(ref count);
                         int k = (int)obj;
                         Thread.Sleep(100); //模拟耗时
                         Log("测试 " + k.ToString("000"));
@@ -82,7 +84,7 @@ namespace TaskSchedulerExTest
 
                 Task.WaitAll(taskList.ToArray());
 
-                Log("==== 结束 " + "，耗时：" + stopwatch.Elapsed.TotalSeconds.ToString("0.000") + " 秒 ========");
+                Log($"==== 结束，count={count}，耗时：{stopwatch.Elapsed.TotalSeconds.ToString("0.000")} 秒 ========");
                 stopwatch.Stop();
             });
         }
@@ -94,11 +96,13 @@ namespace TaskSchedulerExTest
             stopwatch.Start();
 
             int n = 100;
+            int count = 0;
             List<Task> taskList = new List<Task>();
             for (int i = 0; i < n; i++)
             {
                 Task task = _taskEx.Run((obj) =>
                 {
+                    Interlocked.Increment(ref count);
                     int k = (int)obj;
                     Thread.Sleep(100); //模拟耗时
                     Log("测试 " + k.ToString("000"));
@@ -111,7 +115,7 @@ namespace TaskSchedulerExTest
                 await tsk;
             }
 
-            Log("==== 结束 " + "，耗时：" + stopwatch.Elapsed.TotalSeconds.ToString("0.000") + " 秒 ========");
+            Log($"==== 结束，count={count}，耗时：{stopwatch.Elapsed.TotalSeconds.ToString("0.000")} 秒 ========");
             stopwatch.Stop();
         }
 
@@ -125,11 +129,13 @@ namespace TaskSchedulerExTest
             Task.Run(() =>
             {
                 int n = 100;
+                int count = 0;
                 List<Task> taskList = new List<Task>();
                 for (int i = 0; i < n; i++)
                 {
                     Task task = Task.Factory.StartNew((obj) =>
                     {
+                        Interlocked.Increment(ref count);
                         int k = (int)obj;
                         Thread.Sleep(100); //模拟耗时
                         Log("测试 " + k.ToString("000"));
@@ -139,8 +145,74 @@ namespace TaskSchedulerExTest
 
                 Task.WaitAll(taskList.ToArray());
 
-                Log("==== 结束 " + "，耗时：" + stopwatch.Elapsed.TotalSeconds.ToString("0.000") + " 秒 ========");
+                Log($"==== 结束，count={count}，耗时：{stopwatch.Elapsed.TotalSeconds.ToString("0.000")} 秒 ========");
                 stopwatch.Stop();
+            });
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Task.Run(() =>
+            {
+                Task.Run(() =>
+                {
+                    Log("==== 开始 ========");
+                    Stopwatch stopwatch = new Stopwatch();
+                    stopwatch.Start();
+
+                    int count = 0;
+                    List<Task> taskList = new List<Task>();
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        Task task = _taskEx.Run((obj) =>
+                        {
+                            Interlocked.Increment(ref count);
+                            int k = (int)obj;
+                            if (k % 100 == 0)
+                            {
+                                Log("测试 " + k.ToString("000"));
+                            }
+                        }, i);
+                        taskList.Add(task);
+                        if (i % 10 == 0)
+                        {
+                            Thread.Sleep(1);
+                        }
+                    }
+
+                    Task.WaitAll(taskList.ToArray());
+
+                    Log($"==== 结束，count={count}，耗时：{stopwatch.Elapsed.TotalSeconds.ToString("0.000")} 秒 ========");
+                    stopwatch.Stop();
+                });
+
+                Thread.Sleep(20100);
+
+                Task.Run(() =>
+                {
+                    Log("==== 开始 ========");
+                    Stopwatch stopwatch = new Stopwatch();
+                    stopwatch.Start();
+
+                    int count = 0;
+                    List<Task> taskList = new List<Task>();
+                    for (int i = 0; i < 20; i++)
+                    {
+                        Task task = _taskEx.Run((obj) =>
+                        {
+                            Interlocked.Increment(ref count);
+                            int k = (int)obj;
+                            Log("测试 " + k.ToString("000"));
+                        }, i);
+                        taskList.Add(task);
+                        Thread.Sleep(500);
+                    }
+
+                    Task.WaitAll(taskList.ToArray());
+
+                    Log($"==== 结束，count={count}，耗时：{stopwatch.Elapsed.TotalSeconds.ToString("0.000")} 秒 ========");
+                    stopwatch.Stop();
+                });
             });
         }
     }

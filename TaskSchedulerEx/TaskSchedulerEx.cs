@@ -22,7 +22,6 @@ namespace Utils
         private int _auxiliaryThreadTimeOut = 20000; //辅助线程释放时间
         private int _activeThreadCount = 0;
         private System.Timers.Timer _timer;
-        private object _lockCreateTimer = new object();
         private bool _run = true;
         private Semaphore _sem = null;
         private int _semMaxCount = int.MaxValue; //可以同时授予的信号量的最大请求数
@@ -177,18 +176,17 @@ namespace Utils
             thread = new Thread(new ThreadStart(() =>
             {
                 Task task;
-                DateTime dt = DateTime.Now;
-                while (_run && DateTime.Now.Subtract(dt).TotalMilliseconds < _auxiliaryThreadTimeOut)
+                while (_run)
                 {
                     if (_tasks.TryDequeue(out task))
                     {
                         TryExecuteTask(task);
                         Interlocked.Decrement(ref _runCount);
-                        dt = DateTime.Now;
                     }
                     else
                     {
-                        _sem.WaitOne(_auxiliaryThreadTimeOut);
+                        bool bl = _sem.WaitOne(_auxiliaryThreadTimeOut);
+                        if (!bl) break;
                         Interlocked.Decrement(ref _semCount);
                     }
                 }

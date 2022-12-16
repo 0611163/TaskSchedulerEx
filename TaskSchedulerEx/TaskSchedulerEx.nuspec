@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>TaskSchedulerEx</id>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
     <title>TaskSchedulerEx</title>
     <authors>suxiang</authors>
     <owners></owners>
@@ -10,17 +10,18 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/0611163/TaskSchedulerEx</projectUrl>
     <description>Task extension library</description>
-    <releaseNotes>仅修改工程的目标框架</releaseNotes>
+    <releaseNotes>1. 优化：辅助线程可能会有概率不执行Task的问题
+2. 升级LogUtil</releaseNotes>
     <copyright>Copyright @ 2021</copyright>
     <dependencies>
       <group targetFramework=".NETFramework4.5">
-        <dependency id="LogUtil" version="1.0.12" />
+        <dependency id="LogUtil" version="1.0.13" />
       </group>
       <group targetFramework="net6.0">
-        <dependency id="LogUtil" version="1.0.12" />
+        <dependency id="LogUtil" version="1.0.13" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="LogUtil" version="1.0.12" />
+        <dependency id="LogUtil" version="1.0.13" />
       </group>
     </dependencies>
   </metadata>

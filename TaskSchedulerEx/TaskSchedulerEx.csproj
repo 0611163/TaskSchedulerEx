@@ -4,9 +4,9 @@
 		<TargetFrameworks>net45;netstandard2.0;net6.0</TargetFrameworks>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>disable</Nullable>
-		<Version>1.0.8</Version>
-		<AssemblyVersion>1.0.8</AssemblyVersion>
-		<FileVersion>1.0.8</FileVersion>
+		<Version>1.0.9</Version>
+		<AssemblyVersion>1.0.9</AssemblyVersion>
+		<FileVersion>1.0.9</FileVersion>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
@@ -22,7 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="LogUtil" Version="1.0.12" />
+		<PackageReference Include="LogUtil" Version="1.0.13" />
 	</ItemGroup>
 
 </Project>
